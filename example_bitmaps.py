@@ -2,7 +2,7 @@ import st7565
 from pygame import time
 clock = time.Clock()
 
-glcd = st7565.Glcd(rgb=[17,27,22])
+glcd = st7565.Glcd(rgb=[21, 20, 16])
 glcd.init()
 glcd.set_backlight_color(0, 0, 100)
 

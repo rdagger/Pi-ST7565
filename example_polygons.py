@@ -2,7 +2,7 @@ import st7565
 import xglcd_font as font
 from time import sleep
 
-glcd = st7565.Glcd(rgb=[17,27,22])
+glcd = st7565.Glcd(rgb=[21, 20, 16])
 glcd.init()
 glcd.set_backlight_color(0, 100, 0)
 x0, y0 = 40, 31

@@ -4,7 +4,7 @@ import math
 import time
 
 neato = font.XglcdFont('/home/pi/Pi-ST7565/fonts/Neato5x7.c', 5, 7)
-glcd = st7565.Glcd(rgb=[17,27,22])
+glcd = st7565.Glcd(rgb=[21, 20, 16])
 glcd.init()
 x0, y0 = 63, 31
 
