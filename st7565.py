@@ -66,7 +66,7 @@ class Glcd(object):
         self.__spi.max_speed_hz = 250000
 
         # Initialize back_buffer
-        back_buffer = np.zeros((Glcd.LCD_HEIGHT, Glcd.LCD_WIDTH), dtype='uint8')
+        self.back_buffer = np.zeros((Glcd.LCD_HEIGHT, Glcd.LCD_WIDTH), dtype='uint8')
 
         # LCD Pins
         self.a0 = a0
