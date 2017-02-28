@@ -40,6 +40,8 @@ class Glcd(object):
     LCD_PAGE_COUNT = 8
     LCD_CONTRAST = 0x19
 
+    BACKLIGHT_PWM_FREQUENCY = 100
+
     # LCD Page Order
     __pagemap = (3, 2, 1, 0, 7, 6, 5, 4)
 
@@ -82,9 +84,9 @@ class Glcd(object):
             GPIO.setup(rgb[0], GPIO.OUT)
             GPIO.setup(rgb[1], GPIO.OUT)
             GPIO.setup(rgb[2], GPIO.OUT)
-            self.red = GPIO.PWM(rgb[0], 100)
-            self.green = GPIO.PWM(rgb[1], 100)
-            self.blue = GPIO.PWM(rgb[2], 100)
+            self.red = GPIO.PWM(rgb[0], self.BACKLIGHT_PWM_FREQUENCY)
+            self.green = GPIO.PWM(rgb[1], self.BACKLIGHT_PWM_FREQUENCY)
+            self.blue = GPIO.PWM(rgb[2], self.BACKLIGHT_PWM_FREQUENCY)
             # Set backlight to full white (GPIO set up as cathodes)
             self.red.start(0)
             self.green.start(0)
@@ -121,10 +123,10 @@ class Glcd(object):
             X coordinates are 1 based on Adafruit ST7565
         """
         # Confirm valid horizontal position
-        if (x >= self.LCD_WIDTH | x < 0):
+        if x >= self.LCD_WIDTH | x < 0:
             return
         # Confirm valid vertal page
-        if (page > self.LCD_PAGE_COUNT - 1 | page < 0):
+        if page > self.LCD_PAGE_COUNT - 1 | page < 0:
             return
         # Set page
         self.send_command([self.CMD_SET_PAGE | self.__pagemap[page]])
@@ -704,7 +706,7 @@ class Glcd(object):
             xprev, yprev = x2, y2
             # Calculate perimeter
             # Check for horizontal side
-            if (y1 == y2):
+            if y1 == y2:
                 if x1 > x2:
                     x1, x2 = x2, x1
                 if y1 in xdict:
