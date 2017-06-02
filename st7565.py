@@ -289,16 +289,16 @@ class Glcd(object):
             boolean: False = Coordinates OK, True = Error.
         """
         if xmin < 0:
-            print('x-coordinate: {0} below minimum of 0.').format(xmin)
+            print('x-coordinate: {0} below minimum of 0.'.format(xmin))
             return True
         if ymin < 0:
-            print('y-coordinate: {0} below minimum of 0.').format(ymin)
+            print('y-coordinate: {0} below minimum of 0.'.format(ymin))
             return True
         if xmax >= self.LCD_WIDTH:
-            print('x-coordinate: {0} above maximum of {1}.').format(xmax, self.LCD_WIDTH - 1)
+            print('x-coordinate: {0} above maximum of {1}.'.format(xmax, self.LCD_WIDTH - 1))
             return True
         if ymax >= self.LCD_HEIGHT:
-            print('y-coordinate: {0} above maximum of {1}.').format(ymax, self.LCD_HEIGHT - 1)
+            print('y-coordinate: {0} above maximum of {1}.'.format(ymax, self.LCD_HEIGHT - 1))
             return True
         return False
 
