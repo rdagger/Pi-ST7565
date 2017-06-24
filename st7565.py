@@ -110,7 +110,7 @@ class Glcd(object):
             data ([int]):  data to send
         """
         import RPi.GPIO as GPIO
-        # Set data mode 
+        # Set data mode
         GPIO.output(self.a0, GPIO.HIGH)
         self.__spi.xfer(data)
 
@@ -663,8 +663,8 @@ class Glcd(object):
         theta = math.radians(rotate)
         for s in n:
             t = 2.0 * math.pi * s / sides + theta
-            coords[s, 0] = r * math.cos(t) + x0
-            coords[s, 1] = r * math.sin(t) + y0
+            coords[int(s), 0] = r * math.cos(t) + x0
+            coords[int(s), 1] = r * math.sin(t) + y0
         coords[sides] = coords[0]
         # Cast to python float first to fix rounding errors
         self.draw_lines(coords.astype("float32").astype("int32"), color=color)
@@ -691,8 +691,8 @@ class Glcd(object):
         # Determine polygon coordinates
         for s in n:
             t = 2.0 * math.pi * s / sides + theta
-            coords[s, 0] = r * math.cos(t) + x0
-            coords[s, 1] = r * math.sin(t) + y0
+            coords[int(s), 0] = r * math.cos(t) + x0
+            coords[int(s), 1] = r * math.sin(t) + y0
         coords[sides] = coords[0]
         # Cast to python float first to fix rounding errors
         coords = coords.astype("float32").astype("int32")
