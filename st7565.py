@@ -139,7 +139,7 @@ class Glcd(object):
         """Clear ST7565 display"""
         for page in self.__pagemap:
             # Move to zero position on specified page
-            self.move_cursor(1, page)
+            self.move_cursor(0, page)
             # Send list of zeros to clear page
             self.send_data([0] * self.LCD_WIDTH)
 
@@ -262,7 +262,7 @@ class Glcd(object):
         """Send back buffer to ST7565 display"""
         for idx in range(0, self.LCD_PAGE_COUNT):
             # Home cursor on the page
-            self.move_cursor(1, idx)
+            self.move_cursor(0, idx)
             # Page start row
             row_start = idx << 3
             # Page stop row
