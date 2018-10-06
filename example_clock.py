@@ -1,10 +1,19 @@
-import st7565
-import xglcd_font as font
 import math
 import time
+import sys
+import os 
+root = os.path.dirname(os.path.realpath(__file__))
 
-neato = font.XglcdFont('/home/pi/Pi-ST7565/fonts/Neato5x7.c', 5, 7)
-glcd = st7565.Glcd(rgb=[21, 20, 16])
+from xglcd_font import XglcdFont
+
+if os.environ.get('MOCK_RPI') == 'true':
+    from soft_display import mock_gpio, Glcd
+    mock_gpio()
+else:
+    from st7565 import Glcd
+
+neato = XglcdFont(root + '/fonts/Neato5x7.c', 5, 7)
+glcd = Glcd(rgb=[21, 20, 16])
 glcd.init()
 x0, y0 = 63, 31
 
@@ -43,6 +52,6 @@ while 1:
     glcd.draw_line(x0, y0, *get_face_xy(hour * 30 - 90, 20))
     glcd.flip()
     while minute == int(time.strftime("%M")):
-        time.sleep(1)
+        time.sleep(100)
         
     

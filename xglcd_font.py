@@ -41,21 +41,22 @@ class XglcdFont(object):
             Numpy Array(Uint8): 2D - rows=letters, cols=letter bytes
         """
         data = []
-        with open(path, 'r') as f:
+        with open(path, 'rb') as f:
             for line in f:
                 # Skip lines that do not start with hex values
                 line = line.strip()
-                if len(line) == 0 or line[0:2] != '0x':
+                if len(line) == 0 or line[0:2] != b'0x':
                     continue
                 # Remove comments 
-                comment = line.find('//')
+                comment = line.find(b'//')
                 if comment != -1:
                     line = line[0:comment].strip()
                 # Remove trailing commas
-                if line.endswith(','):
+                if line.endswith(b','):
                     line = line[0:len(line) - 1]
-                # Convert hex strings to integers and append     
-                data.append([int(x, 16) for x in line.split(',')])
+                # Convert hex strings to integers and append
+                
+                data.append([int(x, 16) for x in line.split(b',')])
        
         return np.array(data).astype('uint8')       
 

@@ -1,12 +1,22 @@
-import st7565
 from pygame import time
+import os 
+root = os.path.dirname(os.path.realpath(__file__))
+
+from xglcd_font import XglcdFont
+
+if os.environ.get('MOCK_RPI') == 'true':
+    from soft_display import mock_gpio, Glcd
+    mock_gpio()
+else:
+    from st7565 import Glcd
+
 clock = time.Clock()
 
-glcd = st7565.Glcd(rgb=[21, 20, 16])
+glcd = Glcd(rgb=[21, 20, 16])
 glcd.init()
 glcd.set_backlight_color(0, 0, 100)
 
-path = "/home/pi/Pi-ST7565/images/"
+path = root + "/images/"
 # Use List comprehension to load raw bitmaps to list
 dogs = [glcd.load_bitmap(path + "dog{0}.raw".format(i)) for i in range(1,8)]
 

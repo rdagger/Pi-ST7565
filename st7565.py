@@ -659,9 +659,8 @@ class Glcd(object):
             up to complete on a full pixel.  Therefore diameter = 2 x r + 1.
         """
         coords = np.empty(shape=[sides + 1, 2], dtype="float64")
-        n = np.arange(sides, dtype="float64")
         theta = math.radians(rotate)
-        for s in n:
+        for s in range(sides):
             t = 2.0 * math.pi * s / sides + theta
             coords[s, 0] = r * math.cos(t) + x0
             coords[s, 1] = r * math.sin(t) + y0
@@ -686,10 +685,9 @@ class Glcd(object):
         if self.is_off_grid(x0 - r, y0 - r, x0 + r, y0 + r):
             return
         coords = np.empty(shape=[sides + 1, 2], dtype="float64")
-        n = np.arange(sides, dtype="float64")
         theta = math.radians(rotate)
         # Determine polygon coordinates
-        for s in n:
+        for s in range(sides):
             t = 2.0 * math.pi * s / sides + theta
             coords[s, 0] = r * math.cos(t) + x0
             coords[s, 1] = r * math.sin(t) + y0
