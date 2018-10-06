@@ -1,9 +1,10 @@
 from pygame import time
+import os 
+root = os.path.dirname(os.path.realpath(__file__))
 
 from xglcd_font import XglcdFont
 
-from os import environ
-if environ.get('MOCK_RPI') == 'true':
+if os.environ.get('MOCK_RPI') == 'true':
     from soft_display import mock_gpio, Glcd
     mock_gpio()
 else:
@@ -15,7 +16,7 @@ glcd = Glcd(rgb=[21, 20, 16])
 glcd.init()
 glcd.set_backlight_color(0, 0, 100)
 
-path = "./images/"
+path = root + "/images/"
 # Use List comprehension to load raw bitmaps to list
 dogs = [glcd.load_bitmap(path + "dog{0}.raw".format(i)) for i in range(1,8)]
 
