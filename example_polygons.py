@@ -1,15 +1,22 @@
-import st7565
-import xglcd_font as font
 from time import sleep
 
-glcd = st7565.Glcd(rgb=[21, 20, 16])
+from xglcd_font import XglcdFont
+
+from os import environ
+if environ.get('MOCK_RPI') == 'true':
+    from soft_display import mock_gpio, Glcd
+    mock_gpio()
+else:
+    from st7565 import Glcd
+
+glcd = Glcd(rgb=[21, 20, 16])
 glcd.init()
 glcd.set_backlight_color(0, 100, 0)
 x0, y0 = 40, 31
 rout, rmid, rin = 30, 20, 10
 incr = 2
-path = "/home/pi/Pi-ST7565/"
-wendy = font.XglcdFont(path + 'fonts/Wendy7x8.c', 7, 8)
+path = './'
+wendy = XglcdFont(path + 'fonts/Wendy7x8.c', 7, 8)
 ship = glcd.load_bitmap(path + 'images/ship_38x29.raw',
                         width=38, height=29, invert=True)
 
@@ -31,3 +38,6 @@ for angle in range(0, 360, incr):
     sleep(.01)
 
 glcd.cleanup()
+
+while True:
+    sleep(1)
