@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 
 class XglcdFont(object):
@@ -41,22 +42,22 @@ class XglcdFont(object):
             Numpy Array(Uint8): 2D - rows=letters, cols=letter bytes
         """
         data = []
-        with open(path, 'r') as f:
+        with open(path, 'rb') as f:
             for line in f:
+                # Remove comments
+                cpos = line.find(b'//')
+                if cpos != -1:
+                    line = line[0:cpos]
                 # Skip lines that do not start with hex values
+                line = line.decode()
                 line = line.strip()
                 if len(line) == 0 or line[0:2] != '0x':
                     continue
-                # Remove comments 
-                comment = line.find('//')
-                if comment != -1:
-                    line = line[0:comment].strip()
                 # Remove trailing commas
                 if line.endswith(','):
                     line = line[0:len(line) - 1]
                 # Convert hex strings to integers and append     
                 data.append([int(x, 16) for x in line.split(',')])
-       
         return np.array(data).astype('uint8')       
 
 

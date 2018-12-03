@@ -34,15 +34,19 @@ def draw_face():
     glcd.draw_string(time.strftime("%b").upper(), neato, 0,0)
     glcd.draw_string(time.strftime(" %d"), neato, 0, 8)
 
-while 1:
-    glcd.clear_back_buffer()
-    draw_face()
-    minute = int(time.strftime("%M"))
-    hour = int(time.strftime("%H"))
-    glcd.draw_line(x0, y0, *get_face_xy(minute * 6 + 270, 29))
-    glcd.draw_line(x0, y0, *get_face_xy(hour * 30 - 90, 20))
-    glcd.flip()
-    while minute == int(time.strftime("%M")):
-        time.sleep(1)
-        
+try:
+    while True:
+        glcd.clear_back_buffer()
+        draw_face()
+        minute = int(time.strftime("%M"))
+        hour = int(time.strftime("%H"))
+        glcd.draw_line(x0, y0, *get_face_xy(minute * 6 + 270, 29))
+        glcd.draw_line(x0, y0, *get_face_xy(hour * 30 - 90, 20))
+        glcd.flip()
+        while minute == int(time.strftime("%M")):
+            time.sleep(1)
+except KeyboardInterrupt:
+    print('\nCtrl-C pressed.  Cleaning up and exiting...')
+finally:
+    glcd.cleanup()        
     
